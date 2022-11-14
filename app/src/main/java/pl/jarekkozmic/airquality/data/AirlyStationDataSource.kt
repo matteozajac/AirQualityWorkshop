@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName
 import pl.jarekkozmic.airquality.entity.AQStation
 import pl.jarekkozmic.airquality.logic.RemoteStationsRepository
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Headers
 import javax.inject.Inject
 
 class AirlyStationDataSource @Inject constructor(private val airlyService: AirlyService) : RemoteStationsRepository {
@@ -20,7 +22,12 @@ class AirlyStationDataSource @Inject constructor(private val airlyService: Airly
         }
     }
 
+    companion object {
+        const val HOST = "https://airapi.airly.eu/v2/"
+    }
+
     interface AirlyService {
+        @Headers("apikey: paste your api key here")
         @GET("installations/nearest?lat=50.062006&lng=19.940984&maxDistanceKM=5&maxResults=100")
         suspend fun getInstallations(): List<Installation>
     }
