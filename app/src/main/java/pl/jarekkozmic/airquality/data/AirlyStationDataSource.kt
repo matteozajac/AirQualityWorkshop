@@ -27,7 +27,6 @@ class AirlyStationDataSource @Inject constructor(private val airlyService: Airly
     }
 
     interface AirlyService {
-        @Headers("apikey: paste your api key here")
         @GET("installations/nearest?lat=50.062006&lng=19.940984&maxDistanceKM=5&maxResults=100")
         suspend fun getInstallations(): List<Installation>
     }
