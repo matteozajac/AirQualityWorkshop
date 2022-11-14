@@ -4,10 +4,20 @@ import com.google.gson.annotations.SerializedName
 import pl.jarekkozmic.airquality.entity.AQStation
 import pl.jarekkozmic.airquality.logic.RemoteStationsRepository
 import retrofit2.http.GET
+import javax.inject.Inject
 
-class AirlyStationDataSource : RemoteStationsRepository {
+class AirlyStationDataSource @Inject constructor(private val airlyService: AirlyService) : RemoteStationsRepository {
     override suspend fun getAll(): List<AQStation> {
-        return emptyList()
+        val installations = airlyService.getInstallations()
+        return installations.map { installation ->
+            AQStation(
+                id = installation.id.toString(),
+                name = installation.address?.displayAddress2 ?: "Unknown",
+                city = installation.address?.city ?: "Unknown",
+                sponsor = installation.sponsor?.displayName ?: "Unknown",
+                sponsorImage = installation.sponsor?.logo
+            )
+        }
     }
 
     interface AirlyService {
@@ -16,9 +26,9 @@ class AirlyStationDataSource : RemoteStationsRepository {
     }
 
 
-    data class Installation (
+    data class Installation(
 
-        @SerializedName("id") var id: Int? = null,
+        @SerializedName("id") var id: Int,
         @SerializedName("location") var location: Location? = Location(),
         @SerializedName("locationId") var locationId: Int? = null,
         @SerializedName("address") var address: Address? = Address(),
