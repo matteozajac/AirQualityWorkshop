@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import pl.jarekkozmic.airquality.logic.GetStationsUseCase
+import pl.jarekkozmic.airquality.logic.FakeRemoteStationsRepository
+import pl.jarekkozmic.airquality.logic.RemoteStationsRepository
 import javax.inject.Singleton
 
 @Module
@@ -13,7 +14,8 @@ object AirQualityProvider {
 
     @Provides
     @Singleton
-    fun provideGetStationsUseCase(): GetStationsUseCase {
-        return GetStationsUseCase()
+    fun provideRemoteStationsRepository(): RemoteStationsRepository {
+        return FakeRemoteStationsRepository()
     }
+
 }
