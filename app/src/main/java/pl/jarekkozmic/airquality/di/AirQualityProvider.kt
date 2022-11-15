@@ -10,7 +10,7 @@ import okhttp3.Response
 import pl.jarekkozmic.airquality.data.AirlyStationDataSource
 import pl.jarekkozmic.airquality.data.airly.AirlyService
 import pl.jarekkozmic.airquality.data.airly.AirlyEndpoint
-import pl.jarekkozmic.airquality.logic.RemoteStationsRepository
+import pl.jarekkozmic.airquality.logic.repository.RemoteStationsRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
