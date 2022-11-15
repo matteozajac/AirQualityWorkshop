@@ -21,6 +21,7 @@ class StationListViewModel @Inject constructor(private val getStationsUseCase: G
     }
 
     fun onPullToRefresh() {
+        state = state.copy(isRefreshing = true)
         loadStations()
     }
 
